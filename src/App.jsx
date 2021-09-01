@@ -1,39 +1,25 @@
 import './App.css'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import User from './components/UsersList/User'
+import UsersList from './components/UsersList/UsersList'
+import {useEffect, useState} from 'react'
+
+const axios = require('axios')
 
 function App() {
 
-  const data = {
-    users: [
-      {
-        username: 'user1',
-        first_name: 'user_name1',
-        last_name: 'last_name1',
-        email: 'email_1@none.net'
-      },
-      {
-        username: 'user2',
-        first_name: 'user_name2',
-        last_name: 'last_name2',
-        email: 'email_2@none.net'
-      },
-      {
-        username: 'user3',
-        first_name: 'user_name3',
-        last_name: 'last_name3',
-        email: 'email_3@none.net'
-      }
-    ]
-  }
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/users')
+    .then(res => setUsers(res.data))
+    .catch(err => console.log(`Ошибка запроса к API: ${err}`))
+  },[])
 
   return (
     <>
       <Header/>
-      <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3">
-        {data.users.map(user => <User user={user} />)}
-      </div>
+      <UsersList users={users} />
       <Footer/>
     </>
   )
