@@ -1,31 +1,25 @@
 import './App.css'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
+import Error404 from './components/Error404/Error404'
 import UsersList from './components/UsersList/UsersList'
-import {useEffect, useState} from 'react'
-import { HashRouter, Route } from 'react-router-dom'
-
-const axios = require('axios')
+import ProjectList from './components/ProjectList/ProjectList'
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 function App() {
 
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/users')
-    .then(res => setUsers(res.data))
-    .catch(err => console.log(`Ошибка запроса к API: ${err}`))
-  },[])
-
   return (
     <>
-      <Header/>
-        <HashRouter>
-          <Route exec path={'/'}>
-            <UsersList users={users} />
-          </Route>
-        </HashRouter>
-      <Footer/>
+      <HashRouter>
+        <Header/>
+          <Switch>
+            <Route exact path={'/users'}><UsersList /></Route>
+            <Route exact path={'/projects'}><ProjectList /></Route>
+            <Redirect from="/" exact to={'/projects'} />
+            <Route component={Error404} />
+          </Switch>
+          <Footer/>
+      </HashRouter>
     </>
   )
 }

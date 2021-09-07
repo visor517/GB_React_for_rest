@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
 
@@ -6,8 +7,12 @@ export default function Header() {
         <header className="row bg-primary text-light py-3">
             <nav className="navbar navbar-light">
                 <form className="container-fluid justify-content-start">
-                    <button type="button" className="btn btn-outline-light me-2">Главная</button>
-                    <button type="button" className="btn btn-outline-light">Не главная</button>
+                    <Link to={'/projects'}>
+                        <button type="button" className="btn btn-outline-light me-2">Проекты</button>
+                    </Link>
+                    <Link to={'/users'}>
+                        <button type="button" className="btn btn-outline-light">Пользователи</button>
+                    </Link>
                 </form>
             </nav> 
         </header>
