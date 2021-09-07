@@ -3,6 +3,7 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import UsersList from './components/UsersList/UsersList'
 import {useEffect, useState} from 'react'
+import { HashRouter, Route } from 'react-router-dom'
 
 const axios = require('axios')
 
@@ -19,7 +20,11 @@ function App() {
   return (
     <>
       <Header/>
-      <UsersList users={users} />
+        <HashRouter>
+          <Route exec path={'/'}>
+            <UsersList users={users} />
+          </Route>
+        </HashRouter>
       <Footer/>
     </>
   )
