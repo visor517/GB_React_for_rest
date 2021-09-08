@@ -12,13 +12,11 @@ export default function UsersList() {
     },[])
 
     return (
-        <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3 gy-3 g-3">
-            {users.map(user => (
-                    <div className="col">
-                        <User user={user} key={user.id} />
-                    </div>
-                )
-            )}
-        </div>
+        <>
+            <h2>Список пользователей</h2>
+            <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3 gy-3 g-3">
+                {users.map(user => <User user={user} key={`user_${user.id}`} />)}
+            </div>
+        </>
     )
 }

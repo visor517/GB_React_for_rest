@@ -13,13 +13,11 @@ export default function ProjectsList() {
     },[])
 
     return (
-        <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3 gy-3 g-3">
-            {projects.map(project => (
-                    <div className="col">
-                        <Project project={project} key={project.id} />
-                    </div>
-                )
-            )}
-        </div>
+        <>
+            <h2>Список проектов</h2>
+            <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3 gy-3 g-3">
+                {projects.map(project => <Project project={project} key={`project_${project.id}`} />)}
+            </div>
+        </>
     )
 }

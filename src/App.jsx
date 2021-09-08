@@ -17,6 +17,7 @@ function App() {
             <Route exact path={'/users/'}><UsersList /></Route>
             <Route exact path={'/projects/'}><ProjectsList /></Route>
             <Route exact path={'/todos/'}><ToDosList /></Route>
+            <Route exact path={'/project/:project_id/todos'}><ToDosList /></Route>
             <Redirect from="/" exact to={'/projects/'} />
             <Route component={Error404} />
           </Switch>
