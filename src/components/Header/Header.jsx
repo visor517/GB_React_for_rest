@@ -10,6 +10,9 @@ export default function Header() {
                     <Link to={'/projects'}>
                         <button type="button" className="btn btn-outline-light me-2">Проекты</button>
                     </Link>
+                    <Link to={'/todos'}>
+                        <button type="button" className="btn btn-outline-light me-2">Задачи</button>
+                    </Link>
                     <Link to={'/users'}>
                         <button type="button" className="btn btn-outline-light">Пользователи</button>
                     </Link>

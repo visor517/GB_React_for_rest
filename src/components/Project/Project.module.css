@@ -1,0 +1,15 @@
+.card {
+    box-shadow: 0 0 5px 1px #333;
+}
+
+.card:hover {
+    box-shadow: 0 0 7px 3px #333;
+    transition: .2s;
+}
+
+.status {
+    padding: 2px 6px;
+    display: inline;
+    border-radius: 5px;
+    color: white;
+}
