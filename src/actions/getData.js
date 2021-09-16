@@ -1,10 +1,8 @@
 const axios = require('axios')
 
-export default async function getData(path) {
+export default async function getData(path, headers) {
     try {
-        let result = await axios.get(`http://127.0.0.1:8000/api${path}`)
-
-        console.log(result.data)
+        let result = await axios.get(`http://127.0.0.1:8000/api${path}`, headers)
 
         return result.data
     }

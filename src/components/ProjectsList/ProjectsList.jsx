@@ -1,16 +1,33 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Project from '../Project/Project'
 import {useEffect, useState} from 'react'
 import getData from '../../actions/getData'
+import {AuthContext} from '../../context/Auth'
 
 export default function ProjectsList() {
 
+    const token = useContext(AuthContext)
+
     const [projects, setProjects] = useState([])
 
-    useEffect(async () => {
-        let result = await getData('/projects')
-      setProjects(result['results'])
-    },[])
+    useEffect(() => {
+        async function getProjects() {
+            if (token !== undefined) {
+                let headers = {'Content-Type': 'application/json'}
+                headers['Authorization'] = `Token ${token}`
+
+                try {
+                    let result = await getData('/projects', {headers})
+
+                    setProjects(result['results'])
+                }
+                catch {
+                    console.log('Ошибка получения данных из API')
+                }
+            }
+        }
+        getProjects()
+    },[token])
 
     return (
         <>

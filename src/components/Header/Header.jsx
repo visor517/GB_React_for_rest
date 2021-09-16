@@ -14,7 +14,10 @@ export default function Header() {
                         <button type="button" className="btn btn-outline-light me-2">Задачи</button>
                     </Link>
                     <Link to={'/users'}>
-                        <button type="button" className="btn btn-outline-light">Пользователи</button>
+                        <button type="button" className="btn btn-outline-light me-2">Пользователи</button>
+                    </Link>
+                    <Link to={'/login'}>
+                        <button type="button" className="btn btn-outline-light">Авторизоваться</button>
                     </Link>
                 </form>
             </nav> 

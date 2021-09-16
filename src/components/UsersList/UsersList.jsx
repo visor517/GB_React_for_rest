@@ -1,15 +1,31 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import User from '../User/User'
 import {useEffect, useState} from 'react'
 import getData from '../../actions/getData'
+import {AuthContext} from '../../context/Auth'
 
 export default function UsersList() {
 
+    const token = useContext(AuthContext)
+
     const [users, setUsers] = useState([])
 
-    useEffect(async () => {
-      setUsers(await getData('/users'))
-    },[])
+    useEffect(() => {
+        async function getUsers() { 
+            if (token !== undefined) {
+                let headers = {'Content-Type': 'application/json'}
+                headers['Authorization'] = `Token ${token}`
+                
+                try {
+                    setUsers(await getData('/users', {headers}))
+                }
+                catch {
+                    console.log('Ошибка получения пользователей из API')
+                }
+            }
+        }
+        getUsers()
+    },[token])
 
     return (
         <>
