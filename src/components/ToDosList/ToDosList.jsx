@@ -5,7 +5,7 @@ import {useParams} from 'react-router'
 import getData from '../../actions/getData'
 import {AuthContext} from '../../context/Auth'
 
-export default function ToDosList() {
+export default function ToDosList({todoDelete}) {
 
     const token = useContext(AuthContext)
 
@@ -38,7 +38,7 @@ export default function ToDosList() {
         <>
             <h2>Список задач</h2>
             <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 py-3 gy-3 g-3">
-                {todos.length > 0 ? todos.map(todo => <ToDo todo={todo} key={`todo_${todo.id}`} />) : <h3>Ещё нет задач</h3>}
+                {todos.length > 0 ? todos.map(todo => <ToDo todo={todo} todoDelete={todoDelete} key={`todo_${todo.id}`} />) : <h3>Ещё нет задач</h3>}
             </div>
         </>
     )

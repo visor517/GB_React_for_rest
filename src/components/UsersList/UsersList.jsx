@@ -17,7 +17,9 @@ export default function UsersList() {
                 headers['Authorization'] = `Token ${token}`
                 
                 try {
-                    setUsers(await getData('/users', {headers}))
+                    let result = await getData('/users', {headers})
+
+                    setUsers(result['results'])
                 }
                 catch {
                     console.log('Ошибка получения пользователей из API')

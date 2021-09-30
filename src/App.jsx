@@ -5,7 +5,7 @@ import Error404 from './components/Error404/Error404'
 import UsersList from './components/UsersList/UsersList'
 import ProjectsList from './components/ProjectsList/ProjectsList'
 import ToDosList from './components/ToDosList/ToDosList'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom'
 import LoginForm from './components/LoginForm/LoginForm'
 import Cookies from 'universal-cookie/es6'
 import axios from 'axios'
@@ -37,8 +37,24 @@ function App() {
     setContextToken(token)
   }
 
-  function logout() {
+  function logout() { 
     setContextToken(undefined)
+    const cookies = new Cookies()
+    cookies.remove('token')
+  }
+
+  function todoDelete(id) {
+    console.log(id)
+    let headers = {'Content-Type': 'application/json'}
+    headers['Authorization'] = `Token ${contextToken}`
+
+    axios.delete(`http://127.0.0.1:8000/api/todos/${id}`, {headers})
+        .then(
+          result => {
+            console.log('удалил')
+          },
+          error => console.log(error)
+        )
   }
 
   useEffect(() => getTokenFromCookies(), [])
@@ -46,12 +62,14 @@ function App() {
   return (
     <AuthContext.Provider value = {contextToken}>
       <BrowserRouter>
-        <Header/>
+        <Header authNav={ contextToken ? <button type="button" className="btn btn-outline-light" onClick={() => logout()}>Выйти</button> : 
+                                        <Link to='/login'><button type="button" className="btn btn-outline-light">Войти</button></Link>}
+        />
           <Switch>
             <Route exact path={'/login'}><LoginForm getToken={(username, password) => getToken(username, password)} /></Route>
             <Route exact path={'/users'}><UsersList /></Route>
             <Route exact path={'/projects'}><ProjectsList /></Route>
-            <Route exact path={'/todos'}><ToDosList /></Route>
+            <Route exact path={'/todos'}><ToDosList todoDelete={todoDelete} /></Route>
             <Route exact path={'/project/:project_id/todos'}><ToDosList /></Route>
             <Redirect from="/" exact to={'/projects'} />
             <Route component={Error404} />
